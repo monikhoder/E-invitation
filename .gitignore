@@ -37,3 +37,12 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+# .NET
+**/bin/
+**/obj/
+Api/data/
+.env
+.env.*
+!.env.example
+*.db
