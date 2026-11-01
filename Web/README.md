@@ -1,6 +1,6 @@
 # E-invitation
 
-This template should help get you started developing with Vue 3 in Vite.
+Wedding invitation frontend built with Vue 3 and Vite.
 
 ## Recommended IDE Setup
 
@@ -46,3 +46,46 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Admin portal
+
+The public invitation is available at `/`; the admin sign-in and dashboard are
+available at `/admin/login` and `/admin/dashboard`.
+
+The dashboard loads guests from the Admin-only `GET /api/guests` endpoint and
+creates invitations with `POST /api/guests`. It shows each guest's RSVP status
+and personal invitation URL, which can be copied and shared. Guests can be
+removed using the Admin-only `DELETE /api/guests/{id}` endpoint. The public
+`/invite/:token` page loads the guest name from `GET /api/guests/{token}`.
+Invitation QR codes are generated locally in the browser and can be downloaded
+as PNG files; guest tokens are not sent to an external QR service.
+
+The frontend sends authentication requests through the Vite `/api` proxy, so
+the API cookie remains same-origin in development. The proxy targets the API
+HTTP launch profile at `http://localhost:5183`. To access Vite from another
+device on your local network, start it with:
+
+```sh
+npm run dev -- --host 0.0.0.0
+```
+
+Start the API with its HTTP launch profile:
+
+```sh
+dotnet run --launch-profile http
+```
+
+Development uses a non-secure session cookie so it works over the local HTTP
+address. Use HTTPS in production; production cookies remain secure-only. Do not
+use the HTTP development server on an untrusted network.
+
+From the `api` project, apply its migrations and create an administrator:
+
+```sh
+dotnet ef database update
+dotnet run -- --create-admin
+```
+
+Then sign in with that account. Set `Invitation:BaseUrl` in the API
+configuration to the public frontend URL so generated invitation links point
+to the correct site.

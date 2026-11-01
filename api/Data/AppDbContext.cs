@@ -11,6 +11,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
     public DbSet<AdminUser> AdminUsers { get; set; } = null!;
 
+    public DbSet<PaymentSettings> PaymentSettings { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -34,6 +36,33 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
             entity.HasIndex(x => x.Username)
                 .IsUnique();
+        });
+
+        modelBuilder.Entity<Guest>(entity =>
+        {
+            entity.Property(x => x.InvitationToken)
+                .HasMaxLength(43);
+
+            entity.Property(x => x.Wish)
+                .HasMaxLength(1000);
+
+            entity.HasIndex(x => x.InvitationToken)
+                .IsUnique();
+
+        });
+
+        modelBuilder.Entity<PaymentSettings>(entity =>
+        {
+            entity.HasKey(x => x.Id);
+
+            entity.Property(x => x.AbaUrl)
+                .HasMaxLength(2000);
+
+            entity.Property(x => x.QrImageContentType)
+                .HasMaxLength(50);
+
+            entity.Property(x => x.UpdatedAtUtc)
+                .IsRequired();
         });
     }
 }

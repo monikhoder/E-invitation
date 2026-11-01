@@ -4,3 +4,57 @@ GET {{api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+### Public payment details for the invitation page
+GET {{api_HostAddress}}/api/payment-settings
+Accept: application/json
+
+###
+
+### List guests (requires an Admin login cookie)
+GET {{api_HostAddress}}/api/guests
+Accept: application/json
+
+###
+
+### Create a guest invitation (requires an Admin login cookie)
+POST {{api_HostAddress}}/api/guests
+Content-Type: application/json
+
+{
+  "name": "Guest Name",
+  "phone": "+1234567890"
+}
+
+###
+
+### Delete a guest by ID (requires an Admin login cookie)
+DELETE {{api_HostAddress}}/api/guests/1
+
+###
+
+### Save a wish using a guest's personal invitation token
+POST {{api_HostAddress}}/api/guests/PASTE_INVITATION_TOKEN/wish
+Content-Type: application/json
+
+{
+  "wish": "Wishing you a lifetime of love and happiness!"
+}
+
+###
+
+### List recent public guest wishes
+GET {{api_HostAddress}}/api/guests/wishes
+Accept: application/json
+
+###
+
+### Confirm RSVP for a guest invitation token (0 means unable to attend)
+POST {{api_HostAddress}}/api/guests/PASTE_INVITATION_TOKEN/rsvp
+Content-Type: application/json
+
+{
+  "guestCount": 2
+}
+
+###

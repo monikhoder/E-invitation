@@ -52,6 +52,10 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("InvitationToken")
+                        .HasMaxLength(43)
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("INTEGER");
 
@@ -62,9 +66,47 @@ namespace api.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("RsvpGuestCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Wish")
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("InvitationToken")
+                        .IsUnique();
+
                     b.ToTable("Guests");
+                });
+
+            modelBuilder.Entity("api.Models.PaymentSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AbaUrl")
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("AbaPaymentEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("QrImageContentType")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("QrImageData")
+                        .HasColumnType("BLOB");
+
+                    b.Property<DateTime>("UpdatedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentSettings");
                 });
 #pragma warning restore 612, 618
         }

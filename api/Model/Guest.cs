@@ -10,5 +10,11 @@ namespace api.Models
     public string? Phone { get; set; }
 
     public bool IsConfirmed { get; set; }
+
+    public int? RsvpGuestCount { get; set; }
+
+    public string? InvitationToken { get; set; }
+
+    public string? Wish { get; set; }
     }
 }

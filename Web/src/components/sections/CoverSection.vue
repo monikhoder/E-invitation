@@ -15,7 +15,7 @@ defineEmits<{ open: [] }>()
         <img class="cover-logo" src="/images/sm_logo.png" alt="S and M wedding logo" />
       </div>
       <h2 class="cover-caption khmer">សូមគោរពអញ្ជើញ</h2>
-      <p class="cover-names khmer">{{ guestName }}</p>
+      <p v-if="guestName" class="cover-names khmer">{{ guestName }}</p>
       <button type="button" class="open-invitation khmer" @click="$emit('open')">
         បើកលិខិតអញ្ជើញ
       </button>
